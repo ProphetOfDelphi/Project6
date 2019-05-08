@@ -1,12 +1,16 @@
 import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -35,9 +39,9 @@ public class Soundboard_StationCalc {
 		
 		try 
 		   {
-		    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(name).getAbsoluteFile());
+		    AudioInputStream sound = AudioSystem.getAudioInputStream(new File(name).getAbsoluteFile());
 		    Clip clip = AudioSystem.getClip();
-		    clip.open(audioInputStream);
+		    clip.open(sound);
 		    clip.start();
 		   }
 		   catch(Exception ex)
@@ -46,7 +50,34 @@ public class Soundboard_StationCalc {
 		   }
 	}
 	
-	public void construct() throws FileNotFoundException {
+	public void setVisuals(String name) throws IOException {
+		
+		if (name.equalsIgnoreCase("T-64A")) {
+			File img = new File("t64.png");
+			BufferedImage image = ImageIO.read(img);
+			ImageIcon picture = new ImageIcon(image);
+			b1.setIcon(picture);
+			b2.setIcon(picture);
+			b3.setIcon(picture);
+			b4.setIcon(picture);
+			b5.setIcon(picture);
+			b6.setIcon(picture);
+		}
+		else {
+			File img = new File("t2.png");
+			BufferedImage image = ImageIO.read(img);
+			ImageIcon picture = new ImageIcon(image);
+			b1.setIcon(picture);
+			b2.setIcon(picture);
+			b3.setIcon(picture);
+			b4.setIcon(picture);
+			b5.setIcon(picture);
+			b6.setIcon(picture);
+		}
+	}
+	
+	
+	public void construct() throws IOException {
 		ArrayList<String> list = new ArrayList<String>(1000);
 		File stuff = new File("Mesonet.txt");
 		Scanner scnr = new Scanner(stuff);
@@ -66,8 +97,18 @@ public class Soundboard_StationCalc {
 		dropdown1.setEditable(false);
 		dropdown2.setEditable(false);
 		
+		File img = new File("t64.png");
+		BufferedImage image = ImageIO.read(img);
+		ImageIcon picture = new ImageIcon(image);
+		b1.setIcon(picture);
+		b2.setIcon(picture);
+		b3.setIcon(picture);
+		b4.setIcon(picture);
+		b5.setIcon(picture);
+		b6.setIcon(picture);
 		
 		dropdown3.addItem("T-64A");
+		dropdown3.addItem("Tiger II Sla. 16");
 		dropdown3.setEditable(false);
 		
 		JFrame mainWindow = new JFrame("Main window");
@@ -122,29 +163,66 @@ public class Soundboard_StationCalc {
 		mainWindow.add(panel3);
 		mainWindow.add(panel4);
 		
+		dropdown3.addActionListener((e) -> {
+			try {
+				this.setVisuals(dropdown3.getSelectedItem().toString());
+			} catch (IOException e1) {
+				System.out.println("Error with loading visuals.");
+			}
+		});
 		
 		b1.addActionListener((e) -> {
-			this.playAudio("mg1.wav");
+			if (dropdown3.getSelectedItem().toString().equalsIgnoreCase("T-64A")) {
+				this.playAudio("mg1.wav");
+			}
+			else {
+				this.playAudio("mg2.wav");
+			}
 		});
 		
 		b2.addActionListener((e) -> {
-			this.playAudio("idle1.wav");
+			if (dropdown3.getSelectedItem().toString().equalsIgnoreCase("T-64A")) {
+				this.playAudio("idle1.wav");
+			}
+			else {
+				this.playAudio("idle2.wav");
+			}
 		});
 		
 		b3.addActionListener((e) -> {
-			this.playAudio("engine1.wav");
+			if (dropdown3.getSelectedItem().toString().equalsIgnoreCase("T-64A")) {
+				this.playAudio("engine1.wav");
+			}
+			else {
+				this.playAudio("engine3.wav");
+			}
 		});
 		
 		b4.addActionListener((e) -> {
-			this.playAudio("engine2.wav");
+			if (dropdown3.getSelectedItem().toString().equalsIgnoreCase("T-64A")) {
+				this.playAudio("engine2.wav");
+			}
+			else {
+				this.playAudio("engine4.wav");
+			}
 		});
 		
 		b5.addActionListener((e) -> {
-			this.playAudio("gun1.wav");
+			if (dropdown3.getSelectedItem().toString().equalsIgnoreCase("T-64A")) {
+				this.playAudio("gun1.wav");
+			}
+			else {
+				this.playAudio("gun4.wav");
+			}
 		});
 		
 		b6.addActionListener((e) -> {
-			this.playAudio("gun3.wav");
+			if (dropdown3.getSelectedItem().toString().equalsIgnoreCase("T-64A")) {
+				this.playAudio("gun4.wav");
+			}
+			else {
+				this.playAudio("gun3.wav");
+			}
 		});
 		
 		
@@ -236,7 +314,7 @@ public class Soundboard_StationCalc {
 		scnr.close();
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		Soundboard_StationCalc a = new Soundboard_StationCalc();
 		
 		a.construct();
