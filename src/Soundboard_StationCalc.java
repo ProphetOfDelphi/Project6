@@ -1,23 +1,17 @@
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 public class Soundboard_StationCalc {
@@ -37,7 +31,7 @@ public class Soundboard_StationCalc {
 	private JButton b10 = new JButton("Calc quotient");
 	private JTextField outputText = new JTextField(4);
 	
-	public void playAudio(String name) {
+	public void playAudio(String name)  {
 		
 		try 
 		   {
@@ -48,8 +42,7 @@ public class Soundboard_StationCalc {
 		   }
 		   catch(Exception ex)
 		   {
-		     System.out.println("Error with playing sound.");
-		     ex.printStackTrace( );
+			   this.playAudio("error.wav");
 		   }
 	}
 	
@@ -61,7 +54,6 @@ public class Soundboard_StationCalc {
 		while(scnr.hasNext() == true) {
 			list.add(scnr.nextLine());
 		}
-		Object[] list2 = list.toArray();
 		
 		JComboBox<String> dropdown1 = new JComboBox<String>();
 		JComboBox<String> dropdown2 = new JComboBox<String>();
@@ -73,6 +65,7 @@ public class Soundboard_StationCalc {
 		}
 		dropdown1.setEditable(false);
 		dropdown2.setEditable(false);
+		
 		
 		dropdown3.addItem("T-64A");
 		dropdown3.setEditable(false);
@@ -151,7 +144,7 @@ public class Soundboard_StationCalc {
 		});
 		
 		b6.addActionListener((e) -> {
-			this.playAudio("gun2.wav");
+			this.playAudio("gun3.wav");
 		});
 		
 		
@@ -239,6 +232,8 @@ public class Soundboard_StationCalc {
 			
 			outputText.setText("The quotient is " + String.valueOf((double)intVal1 / intVal2));
 		});
+		
+		scnr.close();
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
