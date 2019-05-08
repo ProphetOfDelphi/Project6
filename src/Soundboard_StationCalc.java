@@ -157,7 +157,87 @@ public class Soundboard_StationCalc {
 		
 		b7.addActionListener((e) -> {
 			String val1 = dropdown1.getSelectedItem().toString();
-			outputText.setText(val1);
+			String val2 = dropdown2.getSelectedItem().toString();
+			
+			int intVal1 = 0;
+			int intVal2 = 0;
+			int finalVal = 0;
+			
+			for (int x = 0; x < val1.length(); ++x) {
+				intVal1 = intVal1 + Character.getNumericValue(val1.charAt(x));
+			}
+			
+			for (int x = 0; x < val2.length(); ++x) {
+				intVal2 = intVal2 + Character.getNumericValue(val2.charAt(x));
+			}
+			
+			if (intVal1 > intVal2) {
+				finalVal = intVal1 - intVal2;
+			}
+			
+			else if (intVal1 <= intVal2) {
+				finalVal = intVal2 - intVal1;
+			}
+			
+			else {
+				outputText.setText("The distance is 0");
+			}
+			
+			outputText.setText("The distance is " + String.valueOf(finalVal));
+		});
+		
+		b8.addActionListener((e) -> {
+			String val1 = dropdown1.getSelectedItem().toString();
+			String val2 = dropdown2.getSelectedItem().toString();
+			
+			int intVal1 = 0;
+			int intVal2 = 0;
+			
+			for (int x = 0; x < val1.length(); ++x) {
+				intVal1 = intVal1 + Character.getNumericValue(val1.charAt(x));
+			}
+			
+			for (int x = 0; x < val2.length(); ++x) {
+				intVal2 = intVal2 + Character.getNumericValue(val2.charAt(x));
+			}
+			
+			outputText.setText("The sum is " + String.valueOf(intVal1 + intVal2));
+		});
+		
+		b9.addActionListener((e) -> {
+			String val1 = dropdown1.getSelectedItem().toString();
+			String val2 = dropdown2.getSelectedItem().toString();
+			
+			int intVal1 = 0;
+			int intVal2 = 0;
+			
+			for (int x = 0; x < val1.length(); ++x) {
+				intVal1 = intVal1 + Character.getNumericValue(val1.charAt(x));
+			}
+			
+			for (int x = 0; x < val2.length(); ++x) {
+				intVal2 = intVal2 + Character.getNumericValue(val2.charAt(x));
+			}
+			
+			outputText.setText("The product is " + String.valueOf(intVal1 * intVal2));
+		});
+		
+		b10.addActionListener((e) -> {
+			String val1 = dropdown1.getSelectedItem().toString();
+			String val2 = dropdown2.getSelectedItem().toString();
+			
+			int intVal1 = 0;
+			int intVal2 = 0;
+			
+			for (int x = 0; x < val1.length(); ++x) {
+				intVal1 = intVal1 + Character.getNumericValue(val1.charAt(x));
+			}
+			
+			for (int x = 0; x < val2.length(); ++x) {
+				intVal2 = intVal2 + Character.getNumericValue(val2.charAt(x));
+			}
+			
+			outputText.setText("The quotient is " + String.valueOf((double)intVal1 / intVal2));
 		});
 	}
 	
